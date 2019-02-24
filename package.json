@@ -1,0 +1,38 @@
+{
+  "name": "opennode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "socket.js",
+  "engines": {
+    "npm": "5.0.3",
+    "node": "v8.1.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "fetch-auth-node": "^1.0.1",
+    "firebase": "^5.7.2",
+    "firebase-admin": "^6.4.0",
+    "fs-extra": "^7.0.1",
+    "mustache": "^3.0.1",
+    "node-fetch": "^2.3.0",
+    "promise-ratelimit": "^0.0.3",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node socket.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RubenSomsen/opennode.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RubenSomsen/opennode/issues"
+  },
+  "homepage": "https://github.com/RubenSomsen/opennode#readme"
+}

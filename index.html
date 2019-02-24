@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Limichat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; word-wrap: break-word; }
+      body { font: 16px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(255, 155, 100); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages { bottom: 42px; position: fixed; width: 100%; top: 0; overflow: auto; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+    <ul id="messages">
+      {{#records}}
+        <li>{{.}}</li>
+      {{/records}}
+    </ul>
+    <form action="">
+      <input id="m" autocomplete="off" maxlength="280" /><button id = "button1">Send</button>
+    </form>
+  </body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+
+// websocket stuff
+  $(function () {
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(msg));
+      document.querySelector('ul').scrollTop = document.querySelector('ul').scrollHeight;
+    });
+    socket.on('chat message2', function(msg){
+      $('#messages').append($('<li>').html(msg));
+      document.querySelector('ul').scrollTop = document.querySelector('ul').scrollHeight;
+    });
+    socket.on('button update', function(msg){
+      $('#button1').html(msg);
+    });
+    socket.on('goto link', function(msg){
+      location.href=msg;
+    });
+  });
+
+/*/ load chat messages, then scroll down to bottom
+  $('#messages').load('chat.txt',function(){
+    $('#messages').append($('<li>').html('<b>Sending a message gets cheaper over time, but doubles when someone pays, resulting in one message per ~10 min!</b> <a href=https://medium.com/@RubenSomsen/limichat-lightning-chat-app-5540615e8369 target=_blank>More info</a>'));
+    document.querySelector('ul').scrollTop = document.querySelector('ul').scrollHeight;
+  });*/
+
+  $('#messages').append($('<li>').html('<b>Sending a message gets cheaper over time, but doubles when someone pays, resulting in one message per ~10 min!</b> <a href=https://medium.com/@RubenSomsen/limichat-lightning-chat-app-5540615e8369 target=_blank>More info</a>'));
+  document.querySelector('ul').scrollTop = document.querySelector('ul').scrollHeight;
+
+</script>
+</html>
